@@ -37,6 +37,10 @@ namespace SteamJSONAccount
 
 
 
+        public const byte MostRecentValue = 1;
+
+
+
         public static IReadOnlyCollection<SteamAccount> GetAllAccounts()
         {
             List<SteamAccount> steamAccounts = new List<SteamAccount>();
@@ -49,7 +53,7 @@ namespace SteamJSONAccount
                 ulong.Parse(property.Name),
                 property.Value[AccountName].ToString(),
                 property.Value[PersonaName].ToString(),
-                int.Parse(property.Value[MostRecent].ToString()) == 1 ? true : false));
+                int.Parse(property.Value[MostRecent].ToString()) == MostRecentValue ? true : false));
             }
 
             return steamAccounts;
