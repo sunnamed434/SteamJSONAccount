@@ -12,7 +12,9 @@ namespace SteamJSONAccount
 {
     public class Program
     {
-        public const string STEAM_ACCOUNTS_FILEPATH = @"D:\Games\Steam\config\loginusers.vdf";
+        public const string STEAM_ACCOUNTS_PATH = @"D:\Games\Steam\config\loginusers.vdf";
+
+
 
         private static void Main(string[] args)
         {
@@ -27,19 +29,27 @@ namespace SteamJSONAccount
 
     public class SteamAccountsUtility
     {
+        public static readonly string AccountName = "AccountName";
+
+        public static readonly string PersonaName = "PersonaName";
+
+        public static readonly string MostRecent = "MostRecent";
+
+
+
         public static IReadOnlyCollection<SteamAccount> GetAllAccounts()
         {
             List<SteamAccount> steamAccounts = new List<SteamAccount>();
 
-            VProperty deserializedProperty = VdfConvert.Deserialize(File.ReadAllText(Program.STEAM_ACCOUNTS_FILEPATH));
+            VProperty deserializedProperty = VdfConvert.Deserialize(File.ReadAllText(Program.STEAM_ACCOUNTS_PATH));
 
             foreach (JProperty property in deserializedProperty.ToJson().Value)
             {
                 steamAccounts.Add(new SteamAccount(
                 ulong.Parse(property.Name),
-                property.Value["AccountName"].ToString(),
-                property.Value["PersonaName"].ToString(),
-                int.Parse(property.Value["MostRecent"].ToString()) == 1 ? true : false));
+                property.Value[AccountName].ToString(),
+                property.Value[PersonaName].ToString(),
+                int.Parse(property.Value[MostRecent].ToString()) == 1 ? true : false));
             }
 
             return steamAccounts;
