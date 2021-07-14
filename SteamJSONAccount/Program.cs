@@ -37,7 +37,7 @@ namespace SteamJSONAccount
 
 
 
-        public const byte MostRecentValue = 1;
+        public const byte MOST_RECENT_VALUE = 1;
 
 
 
@@ -53,7 +53,7 @@ namespace SteamJSONAccount
                 ulong.Parse(property.Name),
                 property.Value[AccountName].ToString(),
                 property.Value[PersonaName].ToString(),
-                int.Parse(property.Value[MostRecent].ToString()) == MostRecentValue ? true : false));
+                int.Parse(property.Value[MostRecent].ToString()) == MOST_RECENT_VALUE ? true : false));
             }
 
             return steamAccounts;
