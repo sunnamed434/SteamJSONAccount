@@ -37,7 +37,7 @@ namespace SteamJSONAccount
 
 
 
-        public const byte MOST_RECENT_VALUE = 1;
+        public const byte MostRecentValue = 1;
 
 
 
