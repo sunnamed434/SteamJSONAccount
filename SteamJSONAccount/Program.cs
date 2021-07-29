@@ -29,11 +29,11 @@ namespace SteamJSONAccount
 
     public class SteamAccountsUtility
     {
-        public static readonly string AccountName = "AccountName";
+        public static readonly string AccountName = nameof(AccountName);
 
-        public static readonly string PersonaName = "PersonaName";
+        public static readonly string PersonaName = nameof(PersonaName);
 
-        public static readonly string MostRecent = "MostRecent";
+        public static readonly string MostRecent = nameof(MostRecent);
 
 
 
