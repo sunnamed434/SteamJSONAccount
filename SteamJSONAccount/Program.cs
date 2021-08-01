@@ -12,7 +12,7 @@ namespace SteamJSONAccount
 {
     public class Program
     {
-        public const string STEAM_ACCOUNTS_PATH = @"D:\Games\Steam\config\loginusers.vdf";
+        public const string SteamAccountsPath = @"D:\Games\Steam\config\loginusers.vdf";
 
 
 
@@ -45,7 +45,7 @@ namespace SteamJSONAccount
         {
             List<SteamAccount> steamAccounts = new List<SteamAccount>();
 
-            VProperty deserializedProperty = VdfConvert.Deserialize(File.ReadAllText(Program.STEAM_ACCOUNTS_PATH));
+            VProperty deserializedProperty = VdfConvert.Deserialize(File.ReadAllText(Program.SteamAccountsPath));
 
             foreach (JProperty property in deserializedProperty.ToJson().Value)
             {
@@ -53,7 +53,7 @@ namespace SteamJSONAccount
                 ulong.Parse(property.Name),
                 property.Value[AccountName].ToString(),
                 property.Value[PersonaName].ToString(),
-                int.Parse(property.Value[MostRecent].ToString()) == MOST_RECENT_VALUE ? true : false));
+                int.Parse(property.Value[MostRecent].ToString()) == MostRecentValue ? true : false));
             }
 
             return steamAccounts;
