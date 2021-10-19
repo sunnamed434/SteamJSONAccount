@@ -41,22 +41,19 @@ namespace SteamJSONAccount
 
 
 
-        public static IReadOnlyCollection<SteamAccount> GetAllAccounts()
+        public static IEnumerable<SteamAccount> GetAllAccounts()
         {
-            List<SteamAccount> steamAccounts = new List<SteamAccount>();
-
             VProperty deserializedProperty = VdfConvert.Deserialize(File.ReadAllText(Program.SteamAccountsPath));
-
             foreach (JProperty property in deserializedProperty.ToJson().Value)
             {
-                steamAccounts.Add(new SteamAccount(
-                ulong.Parse(property.Name),
-                property.Value[AccountName].ToString(),
-                property.Value[PersonaName].ToString(),
-                int.Parse(property.Value[MostRecent].ToString()) == MostRecentValue ? true : false));
+                yield return new SteamAccount
+                (
+                    ulong.Parse(property.Name),
+                    property.Value[AccountName].ToString(),
+                    property.Value[PersonaName].ToString(),
+                    int.Parse(property.Value[MostRecent].ToString()) == MostRecentValue ? true : false
+                );
             }
-
-            return steamAccounts;
         }
 
         public static bool TryGetMostRecentAccount(out SteamAccount account) => (account = GetAllAccounts().FirstOrDefault(s => s.MostRecent == true)) != null;
